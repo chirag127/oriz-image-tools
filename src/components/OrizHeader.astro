@@ -1,0 +1,81 @@
+---
+import HeaderControls from '~/components/HeaderControls.tsx'
+import { SITE_CONFIG } from '~/lib/siteConfig'
+
+// Family sites — keep in sync with the oriz hub. Used by HeaderControls search.
+const FAMILY_SITES = [
+  { slug: 'oriz', name: 'oriz', url: 'https://oriz.in', tagline: 'The hub', emoji: '🏠' },
+  { slug: 'blog', name: 'Blog', url: 'https://blog.oriz.in', tagline: 'Long-form writing', emoji: '✍️' },
+  { slug: 'books', name: 'Books', url: 'https://books.oriz.in', tagline: 'Book summaries + NCERT', emoji: '📚' },
+  { slug: 'book-lore', name: 'Book Lore', url: 'https://book-lore.oriz.in', tagline: 'Reading log + reviews', emoji: '📖' },
+  { slug: 'cards', name: 'Cards', url: 'https://cards.oriz.in', tagline: 'India card intelligence', emoji: '💳' },
+  { slug: 'finance', name: 'Finance', url: 'https://finance.oriz.in', tagline: 'Calculators + guides', emoji: '💰' },
+  { slug: 'image', name: 'Image Tools', url: 'https://image.oriz.in', tagline: 'Compress, convert, resize', emoji: '🖼️' },
+  { slug: 'journal', name: 'Journal', url: 'https://journal.oriz.in', tagline: 'Private journal', emoji: '📓' },
+  { slug: 'pdf', name: 'PDF Tools', url: 'https://pdf.oriz.in', tagline: 'Merge, split, convert PDFs', emoji: '📄' },
+  { slug: 'tools', name: 'Dev Tools', url: 'https://tools.oriz.in', tagline: 'Developer utilities', emoji: '🛠️' },
+  { slug: 'urls-to-md', name: 'URLs to MD', url: 'https://urls-to-md.oriz.in', tagline: 'URL to Markdown', emoji: '🔗' },
+]
+---
+
+<header class="site-header">
+  <div class="container-page header-inner">
+    <a href="/" class="brand">
+      <span class="brand-emoji" aria-hidden="true">🖼️</span>
+      <span class="brand-mark">{SITE_CONFIG.name}</span>
+    </a>
+
+    <nav aria-label="Primary" class="primary-nav">
+      <a href="/tools/">Tools</a>
+      <a href="/about/">About</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+
+    <HeaderControls client:idle sites={FAMILY_SITES} siteName={SITE_CONFIG.name} />
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in oklab, var(--color-bg) 85%, transparent);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .header-inner {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-serif);
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    color: var(--color-fg);
+    line-height: 1;
+  }
+  .brand-emoji { font-size: 1.25rem; }
+  .primary-nav {
+    display: none;
+    gap: 1.5rem;
+    flex: 1;
+    font-size: 0.9375rem;
+  }
+  .primary-nav a {
+    color: var(--color-fg-muted);
+    text-decoration: none;
+  }
+  .primary-nav a:hover { color: var(--color-fg); }
+  @media (min-width: 768px) {
+    .primary-nav { display: flex; }
+  }
+</style>
