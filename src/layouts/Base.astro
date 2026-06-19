@@ -1,89 +1,21 @@
 ---
-import Header from "../components/layout/Header.astro";
-import Footer from "../components/layout/Footer.astro";
-import MobileNavWrapper from "../components/layout/MobileNavWrapper";
-import "../styles/global.css";
+/**
+ * Legacy `Base.astro` — kept as a thin shim that forwards into BaseLayout so
+ * the existing tool, blog, about, contact, privacy, terms, and tools/index
+ * pages don't all need to be rewritten. New pages should import BaseLayout
+ * directly.
+ */
+import BaseLayout from '~/layouts/BaseLayout.astro'
 
 interface Props {
-  title: string;
-  description: string;
-  canonical?: string;
+  title: string
+  description: string
+  canonical?: string
 }
 
-const { title, description, canonical } = Astro.props;
-const siteUrl = "https://img.oriz.in";
-const url = canonical ? `${siteUrl}${canonical}` : siteUrl;
+const { title, description, canonical } = Astro.props
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={description} />
-    <link rel="canonical" href={url} />
-    <title>{title}</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-
-    <script is:inline>
-      (function() {
-        const theme = localStorage.getItem("theme");
-        if (theme === "dark") {
-          document.documentElement.setAttribute("data-theme", "dark");
-        } else if (!theme && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-          document.documentElement.setAttribute("data-theme", "dark");
-        } else {
-          document.documentElement.setAttribute("data-theme", "light");
-        }
-      })();
-    </script>
-  </head>
-  <body class="min-h-screen flex flex-col bg-white">
-    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-white focus:p-2 focus:text-blue-600">
-      Skip to main content
-    </a>
-
-    <Header />
-
-    <main id="main-content" class="flex-1 pt-16">
-      <slot />
-    </main>
-
-    <Footer />
-
-    <MobileNavWrapper client:load />
-
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const toggle = document.getElementById("mobile-nav-toggle");
-        
-        if (toggle) {
-          toggle.addEventListener("click", () => {
-            const event = new CustomEvent("toggle-mobile-nav", {
-              detail: { open: true },
-            });
-            document.dispatchEvent(event);
-          });
-        }
-      });
-
-      const handleLinkClick = () => {
-        document.dispatchEvent(
-          new CustomEvent("toggle-mobile-nav", {
-            detail: { open: false },
-          })
-        );
-      };
-
-      document.addEventListener("click", (e) => {
-        const link = e.target as HTMLAnchorElement;
-        if (link.tagName === "A" && link.pathname.startsWith("/")) {
-          handleLinkClick();
-        }
-      });
-    </script>
-  </body>
-</html>
+<BaseLayout title={title} description={description} canonical={canonical}>
+  <slot />
+</BaseLayout>

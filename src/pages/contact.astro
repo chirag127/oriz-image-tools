@@ -1,52 +1,40 @@
 ---
-import Base from "../layouts/Base.astro";
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import { ContactForm } from '@chirag127/oriz-ui'
+
+const web3formsKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? ''
 ---
 
-<Base
-  title="Contact"
-  description="Get in touch with oriz."
+<BaseLayout
+  title="Contact — Image Tools"
+  description="Bug reports, feature requests, or anything else about image.oriz.in."
 >
-  <section class="py-16 sm:py-20">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-2xl text-center">
-      <h1 class="text-4xl font-extrabold text-[var(--color-text-main)] mb-6">Contact Us</h1>
-      <p class="text-lg text-[var(--color-text-muted)] mb-8">
-        Have questions, feedback, or need support? We'd love to hear from you.
-      </p>
+  <header class="container-prose page-head">
+    <p class="eyebrow"><a href="/">Image Tools</a> / Contact</p>
+    <h1>Contact</h1>
+    <p class="lede">
+      Bug, feature request, or feedback about a tool? The fastest way to reach
+      me is email: <a href="mailto:whyiswhen@gmail.com"><strong>whyiswhen@gmail.com</strong></a>.
+      For tracked issues, open one on
+      <a href="https://github.com/chirag127/oriz-image-tools/issues">GitHub</a>.
+    </p>
+  </header>
 
-      <div class="bg-[var(--color-surface-2)] rounded-2xl p-8 mb-8">
-        <h2 class="text-xl font-bold text-[var(--color-text-main)] mb-4">General Inquiries</h2>
-        <p class="text-[var(--color-text-muted)] mb-4">
-          For general questions or feedback:
-        </p>
-        <a href="mailto:contact@oriz.in" class="text-[var(--color-primary)] text-lg font-semibold hover:underline">
-          contact@oriz.in
-        </a>
-      </div>
+  <section class="container-prose">
+    <ContactForm client:load web3formsKey={web3formsKey} fromName="Image Tools contact form" />
 
-      <div class="bg-[var(--color-surface-2)] rounded-2xl p-8 mb-8">
-        <h2 class="text-xl font-bold text-[var(--color-text-main)] mb-4">Bug Reports & Issues</h2>
-        <p class="text-[var(--color-text-muted)] mb-4">
-          Found a bug or have a feature suggestion?
-        </p>
-        <a 
-          href="https://github.com/chirag127/img-oriz-in/issues" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          class="text-[var(--color-primary)] text-lg font-semibold hover:underline"
-        >
-          Open an Issue on GitHub
-        </a>
-      </div>
-
-      <div class="bg-[var(--color-surface-2)] rounded-2xl p-8">
-        <h2 class="text-xl font-bold text-[var(--color-text-main)] mb-4">Privacy Concerns</h2>
-        <p class="text-[var(--color-text-muted)] mb-4">
-          For privacy-specific inquiries:
-        </p>
-        <a href="mailto:privacy@oriz.in" class="text-[var(--color-primary)] text-lg font-semibold hover:underline">
-          privacy@oriz.in
-        </a>
-      </div>
-    </div>
+    <p class="meta">
+      For privacy questions or DMCA notices, see the
+      <a href="/legal/grievance/">grievance officer</a> page (mandatory under IT Rules 2021).
+    </p>
   </section>
-</Base>
+</BaseLayout>
+
+<style>
+  .page-head { padding-block: 3rem 1.5rem; border-bottom: 1px solid var(--color-border); }
+  .eyebrow { color: var(--color-fg-muted); font-size: 0.8125rem; margin: 0 0 0.5rem; }
+  .eyebrow a { color: var(--color-fg-muted); text-decoration: none; }
+  h1 { font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 2.75rem); font-weight: 600; letter-spacing: -0.02em; margin: 0; }
+  .lede { color: var(--color-fg-muted); margin: 0.75rem 0 0; font-size: 1.0625rem; max-width: 56ch; }
+  .meta { font-size: 0.875rem; color: var(--color-fg-muted); margin-top: 2rem; padding-block: 2rem; }
+</style>

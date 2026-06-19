@@ -1,17 +1,12 @@
 /**
  * Header controls — search dialog (⌘K), theme switcher, accent picker, auth button.
- * One React island for the whole interactive cluster so we ship a single hydration boundary.
+ * One React island for the whole interactive cluster so we ship a single hydration
+ * boundary. Reads the family list from @chirag127/oriz-ui's FAMILY_SITES so the
+ * search results stay in sync across every site.
  */
 import { useEffect, useId, useRef, useState } from 'react'
 import { Palette, Search, Sun, User } from 'lucide-react'
-
-interface Site {
-  slug: string
-  name: string
-  url: string
-  tagline: string
-  emoji: string
-}
+import { FAMILY_SITES, type FamilySite } from '@chirag127/oriz-ui'
 
 const THEMES = [
   { id: 'dark', label: 'Dark' },
@@ -33,11 +28,11 @@ type ThemeId = (typeof THEMES)[number]['id']
 type AccentId = (typeof ACCENTS)[number]['id']
 
 interface Props {
-  sites?: Site[]
-  siteName?: string
+  /** Override the family list (defaults to FAMILY_SITES from oriz-ui). */
+  sites?: FamilySite[]
 }
 
-export default function HeaderControls({ sites = [], siteName = 'Image Tools' }: Props) {
+export default function HeaderControls({ sites = FAMILY_SITES }: Props) {
   const [theme, setTheme] = useState<ThemeId>('dark')
   const [accent, setAccent] = useState<AccentId>('amber')
   const [searchOpen, setSearchOpen] = useState(false)
@@ -86,7 +81,7 @@ export default function HeaderControls({ sites = [], siteName = 'Image Tools' }:
 
   return (
     <>
-      <div className="controls" aria-label={`${siteName} header controls`}>
+      <div className="controls">
         <button
           type="button"
           className="ctrl-btn"

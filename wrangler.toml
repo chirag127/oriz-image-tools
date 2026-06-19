@@ -1,3 +1,14 @@
-name = "img-oriz-in"
-compatibility_date = "2026-03-17"
-pages_build_output_dir = "dist"
+name = "oriz-image-tools"
+compatibility_date = "2026-06-17"
+compatibility_flags = ["nodejs_compat"]
+
+[assets]
+directory = "./dist"
+not_found_handling = "404-page"
+
+# Custom domain bound via dashboard:
+#   image.oriz.in -> oriz-image-tools
+#
+# Legacy domain: img.oriz.in must 301-redirect to image.oriz.in. Configure
+# this as a Cloudflare Bulk Redirect (or a Page Rule) at the dashboard:
+#     https://img.oriz.in/* -> https://image.oriz.in/$1  (301)

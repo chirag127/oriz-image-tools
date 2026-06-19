@@ -1,5 +1,6 @@
 ---
-import Base from "./Base.astro";
+import BaseLayout from "./BaseLayout.astro";
+import { SITE_CONFIG } from "../lib/siteConfig";
 import { getToolById, getRelatedTools } from "../lib/toolMeta";
 import type { ToolMeta } from "../lib/toolMeta";
 import { 
@@ -47,7 +48,7 @@ const relatedTools = (relatedToolIds.length > 0
   : getRelatedTools(toolCategory, 4)
 ).slice(0, 4);
 
-const siteUrl = "https://img.oriz.in";
+const siteUrl = SITE_CONFIG.origin;
 const canonicalUrl = `/tools/${toolName.toLowerCase().replace(/\s+/g, "-")}/`;
 
 const jsonLd = {
@@ -123,7 +124,7 @@ function getIconComponent(iconName: string): LucideIcon | null {
 }
 ---
 
-<Base title={toolName} description={toolDescription} canonical={canonicalUrl}>
+<BaseLayout title={toolName} description={toolDescription} canonical={`${siteUrl}${canonicalUrl}`}>
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
   <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
@@ -144,7 +145,7 @@ function getIconComponent(iconName: string): LucideIcon | null {
         </li>
         <li class="text-[var(--color-text-muted)]" aria-hidden="true">/</li>
         <li aria-current="page">
-          <span class="text-[var(--color-text-main)] font-medium">{toolName}</span>
+          <span style="color: var(--color-fg);" class="font-medium">{toolName}</span>
         </li>
       </ol>
     </nav>
@@ -223,4 +224,4 @@ function getIconComponent(iconName: string): LucideIcon | null {
       }
     </div>
   </div>
-</Base>
+</BaseLayout>

@@ -1,29 +1,11 @@
 {
+  "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "strict": true,
-    "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "bundler",
     "jsx": "react-jsx",
     "jsxImportSource": "react",
-    "lib": ["ESNext", "DOM", "DOM.Iterable"],
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowImportingTsExtensions": true,
-    "isolatedModules": true,
-    "moduleDetection": "force",
-    "noEmit": true,
-    "resolveJsonModule": true,
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
-    "outDir": "./dist",
     "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"],
-      "~/*": ["src/*"]
-    }
+    "paths": { "~/*": ["src/*"] }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.astro"],
-  "exclude": ["dist", "node_modules"]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.astro", "src/env.d.ts"],
+  "exclude": ["dist", "node_modules", ".astro", ".wrangler"]
 }

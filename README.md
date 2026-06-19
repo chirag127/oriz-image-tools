@@ -1,150 +1,58 @@
-<!-- markdownlint-disable MD041 -->
-<p align="center">
-  <img src="https://raw.githubusercontent.com/chirag127/img.oriz.in/main/public/favicon.svg" alt="oriz logo" width="80" height="80" />
-</p>
+# oriz-image-tools
 
-<h1 align="center">oriz - Free Online Image Tools</h1>
+Free, browser-based image tools for the [oriz](https://oriz.in) family.
+Compress, resize, crop, convert (HEIC/WEBP/JPG/PNG), watermark, rotate,
+upscale with AI, remove backgrounds, blur faces, and generate memes — every
+operation runs in your browser. Your photos never travel over the network.
 
-<p align="center">
-  <a href="https://img.oriz.in"><strong>Live Site</strong></a> |
-  <a href="https://github.com/chirag127/img.oriz-in/actions/workflows/ci.yml"><img src="https://github.com/chirag127/img.oriz-in/actions/workflows/ci.yml/badge.svg" alt="CI Status" /></a> |
-  <a href="https://github.com/chirag127/img.oriz-in/blob/main/LICENSE"><img src="https://img.shields.io/github/license/chirag127/img.oriz-in" alt="License" /></a>
-</p>
+Lives at <https://image.oriz.in>. The legacy domain `img.oriz.in` 301s here.
 
-> 16 powerful image tools. All run 100% in your browser. Your images never leave your device.
+## Stack
 
-## Features
+- **Astro 6** static site, deployed via Cloudflare Workers Static Assets
+- **React 19** islands for interactive tools
+- **Tailwind v4** + the [`@chirag127/oriz-ui`](https://github.com/chirag127/oriz-ui) design system
+- **Firebase Auth + Firestore** (shared `oriz-app` project, optional sign-in)
+- Image processing libs: `browser-image-compression`, `heic2any`,
+  `@imgly/background-removal`, `face-api.js`, `fabric`, `jszip`,
+  `react-image-crop`, `gif.js`, `html2canvas`
 
-All image processing happens client-side using WebAssembly and browser APIs - no server uploads required.
-
-### Image Editing
-- [Compress Image](https://img.oriz.in/tools/compress-image/) - Reduce file size without quality loss
-- [Resize Image](https://img.oriz.in/tools/resize-image/) - Change dimensions by pixels or percentage
-- [Crop Image](https://img.oriz.in/tools/crop-image/) - Visual drag-to-crop editor
-- [Rotate Image](https://img.oriz.in/tools/rotate-image/) - Rotate, flip, and batch-orient
-- [Watermark Image](https://img.oriz.in/tools/watermark-image/) - Add text or image watermarks
-
-### Convert
-- [Convert to JPG](https://img.oriz.in/tools/convert-to-jpg/) - PNG, GIF, WEBP, HEIC to JPG
-- [Convert from JPG](https://img.oriz.in/tools/convert-from-jpg/) - JPG to PNG or animated GIF
-- [HTML to Image](https://img.oriz.in/tools/html-to-image/) - Convert HTML/CSS to JPG or SVG
-
-### Edit & Create
-- [Photo Editor](https://img.oriz.in/tools/photo-editor/) - Text, effects, frames, stickers
-- [Meme Generator](https://img.oriz.in/tools/meme-generator/) - 50+ templates + custom upload
-
-### AI Tools
-- [Upscale Image](https://img.oriz.in/tools/upscale-image/) - AI-powered 2x/4x enlargement
-- [Remove Background](https://img.oriz.in/tools/remove-background/) - Automatic background removal
-- [Blur Face](https://img.oriz.in/tools/blur-face/) - Privacy protection with face detection
-
-## Tech Stack
-
-| Category | Technology |
-|---|---|
-| Framework | Astro 6 |
-| UI Islands | React 19 |
-| Styling | Tailwind CSS v4 |
-| Type Safety | TypeScript 5.x |
-| Image Processing | browser-image-compression, Fabric.js, react-image-crop |
-| AI/ML | @imgly/background-removal, face-api.js |
-| Icons | Lucide React |
-| Hosting | Cloudflare Pages |
-| Testing | Vitest + Playwright |
-| Linting | Biome.js |
-
-## Why Browser-Based?
-
-1. **100% Private** - Your images never leave your device
-2. **Lightning Fast** - No upload/download wait times
-3. **Works Offline** - Use tools even without internet
-4. **Free Forever** - No server costs = no paywall
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js 22+
-- pnpm 10+
-
-### Installation
+## Develop
 
 ```bash
-# Clone the repository
-git clone https://github.com/chirag127/img.oriz.in.git
-cd img.oriz.in
-
-# Install dependencies
 pnpm install
-
-# Start development server
-pnpm dev
+npx envpact-cli@0.2.0          # pull shared .env from envpact (Firebase keys etc.)
+pnpm dev                        # http://localhost:4321
 ```
 
-### Available Scripts
+`pnpm typecheck`, `pnpm lint`, `pnpm format`, `pnpm build`, `pnpm preview`.
+
+## Deploy
 
 ```bash
-pnpm dev          # Start development server
-pnpm build        # Build for production
-pnpm preview      # Preview production build
-pnpm lint         # Run Biome linter
-pnpm typecheck   # Run TypeScript type checker
-pnpm test         # Run Vitest unit tests
-pnpm test:e2e    # Run Playwright E2E tests
-```
-
-## Environment Variables
-
-Create a `.env` file:
-
-```env
-# Google AdSense (optional - for monetization)
-PUBLIC_ADSENSE_ID=ca-pub-XXXXXXXXXXXXXXXXX
-
-# Cloudflare (for deployment - add via GitHub Secrets)
-CLOUDFLARE_API_TOKEN=
-CLOUDFLARE_ACCOUNT_ID=
-```
-
-## Deployment
-
-The site deploys automatically via GitHub Actions to Cloudflare Pages on push to main.
-
-### Manual Deploy
-
-```bash
-# Build
 pnpm build
-
-# Deploy to Cloudflare Pages
-wrangler pages deploy dist --project-name=pdf-oriz-in
+pnpm deploy                     # wrangler deploy
 ```
 
-### Custom Domain
+Cloudflare project name: `oriz-image-tools`. The custom domain
+`image.oriz.in` is bound from the dashboard. The legacy `img.oriz.in`
+domain is configured as a 301 bulk-redirect to `image.oriz.in` at the
+Cloudflare account level.
 
-1. Add CNAME record in Cloudflare DNS: `img` -> `pdf-oriz-in.pages.dev`
-2. In Cloudflare Pages: Add custom domain `img.oriz.in`
+## Layout
 
-## Privacy
-
-All image processing happens 100% client-side. We never upload your images to any server. See [Privacy Policy](https://img.oriz.in/privacy/).
-
-## Contributing
-
-Contributions are welcome! Please read our [contributing guidelines](CONTRIBUTING.md) first.
-
-1. Fork the repo
-2. Create a feature branch
-3. Make your changes
-4. Run tests and lint
-5. Submit a PR
-
-## License
-
-MIT License - see [LICENSE](LICENSE) for details.
-
-## Acknowledgments
-
-- [Lucide](https://lucide.dev) for beautiful icons
-- [Cloudflare](https://cloudflare.com) for free hosting
-- [Astro](https://astro.build) for the amazing framework
+- `src/pages/` — Astro routes (`/`, `/tools/*`, `/blog/*`, `/about/`,
+  `/contact/`, `/account/`, `/legal/*`)
+- `src/components/tools/*` — React islands per tool (one per route under
+  `/tools/`)
+- `src/components/ui/*` — small shared UI primitives (DropZone, Slider,
+  ProgressBar, ImagePreview, etc.)
+- `src/layouts/BaseLayout.astro` — every page extends this; mounts the
+  Header, left Sidebar, and Footer
+- `src/layouts/ToolLayout.astro` — tool-page wrapper with breadcrumbs,
+  FAQ, and related-tools blocks
+- `src/lib/toolMeta.ts` — registry of tools shown on `/`, `/tools/`, and
+  the sidebar
+- `src/styles/global.css` — imports `@chirag127/oriz-ui/styles` +
+  `components.css`, plus a small compatibility shim mapping legacy class
+  names (`.btn-primary`, `.tool-card`, etc.) onto oriz-ui tokens

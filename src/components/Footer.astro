@@ -1,17 +1,6 @@
 ---
-const FAMILY_SITES = [
-  { name: 'oriz', url: 'https://oriz.in' },
-  { name: 'Blog', url: 'https://blog.oriz.in' },
-  { name: 'Books', url: 'https://books.oriz.in' },
-  { name: 'Book Lore', url: 'https://book-lore.oriz.in' },
-  { name: 'Cards', url: 'https://cards.oriz.in' },
-  { name: 'Finance', url: 'https://finance.oriz.in' },
-  { name: 'Image Tools', url: 'https://image.oriz.in' },
-  { name: 'Journal', url: 'https://journal.oriz.in' },
-  { name: 'PDF Tools', url: 'https://pdf.oriz.in' },
-  { name: 'Dev Tools', url: 'https://tools.oriz.in' },
-  { name: 'URLs to MD', url: 'https://urls-to-md.oriz.in' },
-]
+import { FAMILY_SITES } from '@chirag127/oriz-ui'
+import { SITE_CONFIG } from '~/lib/siteConfig'
 
 const year = new Date().getFullYear()
 ---
@@ -19,10 +8,10 @@ const year = new Date().getFullYear()
 <footer class="site-footer">
   <div class="container-page footer-inner">
     <div class="footer-col">
-      <p class="footer-brand">Image Tools</p>
+      <p class="footer-brand">{SITE_CONFIG.name}</p>
       <p class="footer-tag">
-        Compress, convert, resize — everything runs in your browser.
-        Part of the <a href="https://oriz.in">oriz family</a> by Chirag Singhal.
+        Compress, convert, resize — everything runs in your browser. Part of the
+        <a href="https://oriz.in">oriz family</a> by Chirag Singhal.
       </p>
     </div>
 
@@ -39,6 +28,7 @@ const year = new Date().getFullYear()
       <h2 class="footer-h">Site</h2>
       <ul class="footer-links">
         <li><a href="/tools/">All tools</a></li>
+        <li><a href="/blog/">Blog</a></li>
         <li><a href="/about/">About</a></li>
         <li><a href="/contact/">Contact</a></li>
         <li><a href="/account/">Account</a></li>
@@ -83,6 +73,8 @@ const year = new Date().getFullYear()
     margin: 0 0 0.5rem;
   }
   .footer-tag { color: var(--color-fg-muted); margin: 0; max-width: 36ch; }
+  .footer-tag a { color: var(--color-fg-muted); }
+  .footer-tag a:hover { color: var(--color-accent); }
   .footer-h {
     font-size: 0.75rem;
     text-transform: uppercase;
